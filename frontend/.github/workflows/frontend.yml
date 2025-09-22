@@ -1,0 +1,46 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    paths:
+      - 'frontend/**' # Memicu hanya jika ada perubahan di direktori frontend
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'frontend/**'
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Sesuaikan dengan versi Node.js Anda
+      
+      - name: Install NPM Dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Build React App
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Build and Push Docker Image
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend # Konteks build adalah direktori frontend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/nama-image-frontend:latest # Ganti nama image Anda
