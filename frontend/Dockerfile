@@ -20,4 +20,4 @@ RUN echo 'VITE_API_URL=http://209.38.85.219:8000/api' > .env
 EXPOSE 5173
 
 # Start Vite development server langsung dengan npx
-CMD ["npx", "vite", "--host", "0.0.0.0", "--port", "5173"]
+CMD ["npx", "vite", "--host", "0.0.0.0", "--port", "80"]
