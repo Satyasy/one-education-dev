@@ -1,8 +1,23 @@
-# Stage 1 - Build
-FROM node:18-alpine as build
+# Frontend Dockerfile (frontend/Dockerfile)
+FROM node:18-alpine
+
+# Set working directory
 WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
+
+# Install dependencies (termasuk vite dan dev dependencies)
 RUN npm install
+
+# Copy source code
 COPY . .
 
-CMD [ "npm", "run", "dev", "--", "--host", "0.0.0.0" , "--port", "80" ]
+# Create .env file for development
+RUN echo 'VITE_API_URL=http://209.38.85.219:8000/api' > .env
+
+# Expose port
+EXPOSE 5173
+
+# Start Vite development server langsung dengan npx
+CMD ["npx", "vite", "--host", "0.0.0.0", "--port", "5173"]
