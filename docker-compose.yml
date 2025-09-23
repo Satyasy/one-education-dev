@@ -13,8 +13,6 @@ services:
       MYSQL_PASSWORD: laravel_password
     volumes:
       - mysql_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
     networks:
       - app-network
     healthcheck:
