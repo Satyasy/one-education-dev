@@ -26,13 +26,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy composer files first for better caching
-COPY composer.json composer.lock ./
+COPY . .
 
 # Install PHP dependencies
 RUN composer install
-
-# Copy application code
-COPY . .
 
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
