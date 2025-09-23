@@ -7,6 +7,8 @@ on:
   pull_request:
 
 jobs:
+  deploy:
+    runs-on: self-hosted
   build:
     runs-on: ubuntu-latest
 
