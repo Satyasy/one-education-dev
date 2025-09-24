@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # Create .env file for development
-RUN echo 'VITE_API_URL=http://209.38.85.219:8000/api' > .env
+RUN echo 'VITE_API_URL=http://localhost:8000/api' > .env
 
 # Expose port
-EXPOSE 5173
+EXPOSE 80
 
 # Start Vite development server langsung dengan npx
 CMD ["npx", "vite", "--host", "0.0.0.0", "--port", "80"]
